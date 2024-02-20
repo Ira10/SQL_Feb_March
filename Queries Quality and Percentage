@@ -1,0 +1,16 @@
+Queries Quality and Percentage
+-- https://docs.google.com/spreadsheets/d/1_Y46EL4nvmdzsGFqQLecMkhBNPWKt2rL-Neto4NU6Ek/edit#gid=1485731466
+
+
+WITH A AS (						
+SELECT *, (CAST(rating AS DECIMAL)/position) AS SOMETHING						
+						
+FROM Queries)						
+						
+SELECT query_name,						
+ROUND(AVG(SOMETHING),2) AS quality,						
+ROUND((((SUM(CASE WHEN rating < 3 THEN 1 END))/COUNT(*))*100),2) AS poor_query_percentage						
+						
+FROM A						
+WHERE query_name is NOT NULL						
+GROUP BY query_name						
